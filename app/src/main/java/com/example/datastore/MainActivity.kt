@@ -2,22 +2,25 @@ package com.example.datastore
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.datastore.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        binding=ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
 
 
@@ -51,6 +54,11 @@ class MainActivity : AppCompatActivity() {
                     Log.e("Okunan Arkadaş:",a)
                 }
             }
+
+            // uygulamanın kaç kere çalıştırıldığını görmek
+            var gelenSayac=ap.okuSayac()
+            ap.kayitSayac(++gelenSayac)
+            binding.textViewSayac.text="Açılış Sayısı: $gelenSayac"
 
 
         }
